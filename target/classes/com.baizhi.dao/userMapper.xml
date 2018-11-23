@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <!-- namespace等于全限定名 -->
+<mapper namespace="com.baizhi.dao.UserDao">
+
+<!-- 查询全部 -->
+<select id="selectAllUser" resultType="User">
+select * from auction_user
+</select>
+
+<!-- 查询一个 -->
+<select id="selectOneUser" resultType="User">
+select * from auction_user where user_id=#{id}
+</select>
+
+<!-- 登陆 -->
+<select id="login" resultType="User">
+select * from auction_user where user_name=#{user_name} and user_password=#{user_password}
+</select>
+
+<!-- 注册 -->
+<insert id="insertUser">
+insert into auction_user values(user_seq.nextval,#{user_name},#{user_password},#{user_card_no},#{user_tel},#{user_address},#{user_post_number},#{user_is_admin},'用户找回密码的问题','答案')
+
+</insert>
+
+<!-- 删除 -->
+<delete id="deleteUser">
+delete auction_user where user_id=#{id}
+</delete>
+
+<!-- 修改 -->
+<update id="updateUser">
+<!-- update auction_user set user_name=#{name},user_password=#{pwd} where user_id=#{id}
+ --></update>
+
+
+
+</mapper>

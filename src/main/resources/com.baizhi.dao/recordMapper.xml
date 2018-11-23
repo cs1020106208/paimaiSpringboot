@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <!-- namespace等于全限定名 -->
+<mapper namespace="com.baizhi.dao.RecordDao">
+
+
+
+
+
+<!-- 查询全部 -->
+<select id="selectAll" resultType="RecordDTO">
+
+
+
+	select ar.auction_time,ar.auction_price,u.user_name from(
+  select *
+	from auction  a left join auction_record r 
+	on a.auction_id=r.auction_id where a.auction_id=#{id})ar left join auction_user u
+  on ar.user_id=u.user_id
+  order by ar.auction_price desc
+
+</select>
+
+
+
+		<!-- 添加商品 -->
+		<insert id="insert">
+		insert into auction_record values(rec_seq.nextval,#{user_id},#{auction_id},sysdate,#{auction_price})
+		</insert>
+
+
+
+
+</mapper>

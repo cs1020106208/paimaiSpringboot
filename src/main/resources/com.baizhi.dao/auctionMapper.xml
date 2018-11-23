@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <!-- namespace等于全限定名 -->
+<mapper namespace="com.baizhi.dao.AuctionDao">
+
+
+<!-- 查询全部 -->
+<select id="selectAllAuction" resultType="Auction">
+select * from auction
+	<where>
+		<if test="auction_name!=null and auction_name!='' ">
+			 auction_name = #{auction_name}
+		</if>
+		 <if test="auction_desc!=null and auction_desc!='' ">
+			 and auction_desc = #{auction_desc}
+		</if>
+		<if test="auction_start_time!=null and auction_start_time!='' ">
+			and auction_start_time <![CDATA[ <= ]]> #{auction_start_time}
+		</if>
+		<if test="auction_end_time!=null and auction_end_time!='' ">
+			and auction_end_time <![CDATA[ <= ]]> #{auction_end_time}
+		</if>
+		<if test="auction_start_price!=null and auction_start_price!='' ">
+			and	auction_start_price <![CDATA[ <= ]]> #{auction_start_price}
+		</if> 
+	</where>
+</select>
+
+<!-- 查询一个 -->
+<select id="selectOneAuction" resultType="Auction">
+select * from auction where auction_id=#{id}
+</select>
+
+
+
+<!-- 添加商品 -->
+<insert id="insertAuction">
+insert into auction values(auction_seq.nextval,#{auction_name},#{ auction_start_price},#{auction_upset},sysdate,sysdate,#{auction_pic},#{auction_desc})
+
+</insert>
+
+<!-- 删除 -->
+<delete id="deleteAuction">
+delete auction where auction_id=#{id}
+</delete>
+
+<!-- 修改 -->
+<update id="updateAuction">
+ update auction set auction_name=#{auction_name},auction_pic=#{auction_pic},auction_start_price=#{auction_start_price},auction_upset=#{auction_upset},auction_start_time=#{auction_start_time},auction_end_time=#{auction_end_time},auction_desc=#{auction_desc} where auction_id=#{auction_id}
+</update>
+
+
+
+</mapper>
